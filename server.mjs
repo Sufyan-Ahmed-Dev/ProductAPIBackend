@@ -23,7 +23,7 @@ app.use(express.json());
 // URI
 const mongodbURI = process.env.DB_URL;
 
-let db;
+let DB;
 
 async function connectToDatabase() {
   try {
@@ -31,7 +31,7 @@ async function connectToDatabase() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    db = client.db();
+    DB = client.db();
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
@@ -76,7 +76,7 @@ app.post("/postProduct", async (req, res) => {
     const product = { name, description, price };
     console.log(product);
 
-    const result = await db.collection("test").insertOne(product);
+    const result = await DB.collection("test").insertOne(product);
     const savedProduct = result.insertedId;
 
     res.status(201).json(savedProduct);
@@ -90,7 +90,7 @@ app.post("/postProduct", async (req, res) => {
 app.get("/check", async (req, res) => {
   console.log("Get all products");
   try {
-    const products = await db.collection("test").find().toArray();
+    const products = await DB.collection("test").find().toArray();
     console.log(products);
     res.json(products);
   } catch (error) {
@@ -115,7 +115,7 @@ app.put("/api/products/:id", async (req, res) => {
     }
 
     const updatedProduct = { name, description, price };
-    const result = await db
+    const result = await DB
       .collection("test")
       .updateOne({ _id: new ObjectId(productId) }, { $set: updatedProduct });
 
@@ -135,7 +135,7 @@ app.delete("/api/products/:id", async (req, res) => {
   console.log("Delete Product function called");
   try {
     const productId = req.params.id;
-    const result = await db
+    const result = await DB
       .collection("test")
       .deleteOne({ _id: new ObjectId(productId) });
 
