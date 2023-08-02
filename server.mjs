@@ -90,7 +90,7 @@ app.post("/postProduct", async (req, res) => {
 app.get("/check", async (req, res) => {
   console.log("Get all products");
   try {
-    const products = await DB.collection("test").find().toArray();
+    const products = await DB.collection("test").find({}).toArray();
     console.log(products);
     res.json(products);
   } catch (error) {
