@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // app.use(cors());
-const allowedOrigins = ['https://smitproducts.netlify.app', 'https://example.com'];
+const allowedOrigins = ['https://smitproducts.netlify.app', 'http://localhost:3000'];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -22,32 +22,33 @@ app.use(express.json());
 
 // URI
 const mongodbURI = process.env.DB_URL;
+console.log(mongodbURI)
 
 let DB;
 
-async function connectToDatabase() {
+
   try {
     const client = await MongoClient.connect(mongodbURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    DB = client.db();
+      DB = client.db();
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
   } catch (error) {
     console.log("Failed to connect to MongoDB:", error);
-    process.exit(1); // Exit the application if the connection fails
+    // process.exit(1); // Exit the application if the connection fails
   }
-}
+
 
 // Call the connectToDatabase function to establish the MongoDB connection
-connectToDatabase();
+// connectToDatabase();
 
 // handle errors
-function handleError(res, status, message) {
-  res.status(status).json({ error: message });
-}
+// function handleError(res, status, message) {
+//   res.status(status).json({ error: message });
+// }
 
 // Middleware to check if the database connection is established
 // app.use((req, res, next) => {
@@ -89,10 +90,12 @@ app.post("/postProduct", async (req, res) => {
 // Get all products
 app.get("/check", async (req, res) => {
   console.log("Get all products");
+  const products = DB.collection("test").find({});
+
   try {
-    const products = await DB.collection("test").find({}).toArray();
-    console.log(products);
-    res.json(products);
+    const allproducts = await products.toArray()
+    console.log(allproducts);
+    res.json(allproducts);
   } catch (error) {
     console.log(error.message);
     handleError(res, 500, "Failed to get products");
