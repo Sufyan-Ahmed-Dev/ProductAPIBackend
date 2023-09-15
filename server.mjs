@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors";
+// import cors from "cors";
 import { MongoClient, ObjectId } from "mongodb";
 import { config } from "dotenv";
 config();
@@ -7,13 +7,13 @@ config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: "https://smitproducts.netlify.app/", // Vervang door de juiste oorsprong
-  methods: "GET, POST, PUT, DELETE", // Vervang door de toegestane methoden
-  allowedHeaders: "Content-Type", // Vervang door de toegestane headers
-  credentials: true, // Schakel cookies en verificatie in indien nodig
-  optionsSuccessStatus: 200
-}));
+// app.use(cors({
+//   origin: "https://smitproducts.netlify.app/", // Vervang door de juiste oorsprong
+//   methods: "GET, POST, PUT, DELETE", // Vervang door de toegestane methoden
+//   allowedHeaders: "Content-Type", // Vervang door de toegestane headers
+//   credentials: true, // Schakel cookies en verificatie in indien nodig
+//   optionsSuccessStatus: 200
+// }));
 app.use(express.json());
 
 // URI
