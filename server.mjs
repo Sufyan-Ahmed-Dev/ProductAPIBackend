@@ -7,16 +7,12 @@ config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// app.use(cors());
-const allowedOrigins = ['https://smitproducts.netlify.app', 'http://localhost:5173'];
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: "https://smitproducts.netlify.app/", // Vervang door de juiste oorsprong
+  methods: "GET, POST, PUT, DELETE", // Vervang door de toegestane methoden
+  allowedHeaders: "Content-Type", // Vervang door de toegestane headers
+  credentials: true, // Schakel cookies en verificatie in indien nodig
+  optionsSuccessStatus: 200
 }));
 app.use(express.json());
 
