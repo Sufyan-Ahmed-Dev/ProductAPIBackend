@@ -1,5 +1,5 @@
 import express from "express";
-// import cors from "cors";
+import cors from "cors";
 import { MongoClient, ObjectId } from "mongodb";
 import { config } from "dotenv";
 config();
@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 //   credentials: true, // Schakel cookies en verificatie in indien nodig
 //   optionsSuccessStatus: 200
 // }));
+app.use(cors())
 app.use(express.json());
 
 // URI
