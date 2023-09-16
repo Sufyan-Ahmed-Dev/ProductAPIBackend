@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 // Define custom CORS options to allow specific headers
 const corsOptions = {
-  origin: '*', // You can specify specific origins here or use a function for dynamic origins
+  origin: 'https://smitproducts.netlify.app', // You can specify specific origins here or use a function for dynamic origins
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization,x-Trigger', // Include the custom header here
   preflightContinue: false,
