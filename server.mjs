@@ -15,11 +15,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Proxy the request to the third-party API
-app.get('/proxy', (req, res) => {
-  const url = 'https://vercel.com/sufyan-ahmed-dev/product/Cbkwwj3WiQKaQvLnbuSV5qdiBBmp/';
-  req.pipe(request(url)).pipe(res);
-});
 app.use(express.json());
 
 // URI
