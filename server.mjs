@@ -6,14 +6,17 @@ config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-// app.use(cors({ origin: ["http://localhost:3000" , "https://smitproducts.netlify.app/"] }));
-// Enable CORS for your server
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+// Define custom CORS options to allow specific headers
+const corsOptions = {
+  origin: '*', // You can specify specific origins here or use a function for dynamic origins
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization,x-Trigger', // Include the custom header here
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+
+// Enable CORS with custom options
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
