@@ -6,7 +6,20 @@ config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(cors({ origin: ["http://localhost:3000" , "https://smitproducts.netlify.app/"] }));
+// app.use(cors({ origin: ["http://localhost:3000" , "https://smitproducts.netlify.app/"] }));
+// Enable CORS for your server
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
+// Proxy the request to the third-party API
+app.get('/proxy', (req, res) => {
+  const url = 'https://vercel.com/sufyan-ahmed-dev/product/Cbkwwj3WiQKaQvLnbuSV5qdiBBmp/';
+  req.pipe(request(url)).pipe(res);
+});
 app.use(express.json());
 
 // URI
